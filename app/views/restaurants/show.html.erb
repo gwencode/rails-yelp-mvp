@@ -1,0 +1,26 @@
+<div class="container">
+
+  <h1><%= @restaurant.name %></h1>
+
+  <p>Address: <%= @restaurant.address %></p>
+  <p>Phone number: <%= @restaurant.phone_number %></p>
+  <p>Category: <%= @restaurant.category %></p>
+
+<h6>Reviews:</h6>
+ <ul>
+    <% @restaurant.reviews.each do |review| %>
+      <li>
+      <%=raw("<i class='fa-solid fa-star'></i>") * review.rating%><%=raw("<i class='fa-regular fa-star'></i>") * (5 - review.rating)%>
+      - <%= review.content %></li>
+    <% end %>
+  </ul>
+
+
+<h6>Add a review:</h6>
+  <%= simple_form_for [@restaurant, @review] do |f| %>
+    <%= f.input :content %>
+    <%= f.input :rating, collection: (0..5) %>
+    <%= f.submit "Submit review", class: "btn btn-primary" %>
+  <% end %>
+
+</div>
